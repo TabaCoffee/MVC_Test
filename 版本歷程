@@ -1,0 +1,8 @@
+Version 0
+嘗試建構出基本的MVC架構，以Model內的Consumption class為核心，在Controller的處理下透過View顯示資料，並實作輸入資料的表格。
+
+Version 1.0
+將資料庫結合進來，使用SQLite來存取資料，成功實現新增跟顯示功能。
+
+Version 1.1
+嘗試加入修改及刪除的功能，但因不夠熟練無法處理選擇資料的問題以失敗告終，僅簡單修整程式。
