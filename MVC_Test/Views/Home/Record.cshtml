@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Consumption Record";
+    Layout = null;
+}
+
+@model MVC_Test.Models.Consumption
+
+<div class="form-group" style="text-align:center;">
+    <label>時間：</label>
+    <label>@Model.Time</label>
+    <br />
+    <label>品項：</label>
+    <label>@Model.Item</label>
+    <br />
+    <label>價格：</label>
+    <label>@Model.Price</label>
+</div>

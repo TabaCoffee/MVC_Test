@@ -20,12 +20,16 @@ namespace MVC_Test.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
+            DateTime date = DateTime.Now;
+            ViewBag.Date = date;
 
-        public IActionResult Privacy()
+            Consumption data = new Consumption("2022/01/01 12:30", "便當", 85);
+            return View(data);
+        }
+        public IActionResult Record(string time, string item, int price)
         {
-            return View();
+            Consumption data = new Consumption(time, item, price);
+            return View(data);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

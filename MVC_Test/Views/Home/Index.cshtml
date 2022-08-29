@@ -1,8 +1,26 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewBag.Title = "Consumption Input";
+    Layout = null;
+
+    var date = ViewBag.Date;
+    var consumption = ViewBag.Consumption;
+    var list = ViewBag.List;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@model MVC_Test.Models.Consumption
+
+<form style="text-align:center;" method="get" action="/Home/Record">
+    <div class="form-group">
+        <label for="exampleInputEmail1">時間</label>
+        <input type="text" class="form-control" name="time" placeholder="@Model.Time" />
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">品項</label>
+        <input type="text" class="form-control" name="item" placeholder="@Model.Item" />
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">價格</label>
+        <input type="text" class="form-control" name="price" placeholder="@Model.Price" />
+    </div>
+    <button type="submit" class="btn btn-primary">確定</button>
+</form>
