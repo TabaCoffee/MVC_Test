@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data.SQLite;
+using System.Data.Common;
 
 namespace MVC_Test.Controllers
 {
@@ -20,16 +22,49 @@ namespace MVC_Test.Controllers
 
         public IActionResult Index()
         {
-            DateTime date = DateTime.Now;
-            ViewBag.Date = date;
-
-            Consumption data = new Consumption("2022/01/01 12:30", "便當", 85);
-            return View(data);
+            return View();
         }
+
         public IActionResult Record(string time, string item, int price)
         {
-            Consumption data = new Consumption(time, item, price);
+            Consumption data = new Consumption("2022/08/08 12:30", "飯糰", 25);
             return View(data);
+        }
+
+        public IActionResult New(string time, string item, int price)
+        {
+            SQLiteConnection connection = new SQLiteConnection("data source = Test.sql");
+            connection.Open();
+            string str = "insert into RECORD_0 values ('" + time + "', '" + item + "', " + price.ToString() + ")";
+            SQLiteCommand cmd = new SQLiteCommand(str, connection);
+            cmd.ExecuteNonQuery();
+
+            cmd.Dispose();
+            connection.Close();
+            connection.Dispose();
+
+            return RedirectToAction("Index","Home");
+        }
+
+        public IActionResult Display()
+        {
+            SQLiteConnection connection = new SQLiteConnection("data source = Test.sql");
+            connection.Open();
+            SQLiteCommand cmd = new SQLiteCommand("select * from RECORD_0", connection);
+            SQLiteDataReader reader = cmd.ExecuteReader();
+
+            List<Consumption> list = new List<Consumption>();
+            while (reader.Read())
+            {
+                list.Add(new Consumption(reader["TIME"].ToString(), reader["ITEM"].ToString(),(int)reader["PRICE"]));
+            }
+            ViewBag.List = list;
+
+            cmd.Dispose();
+            connection.Close();
+            connection.Dispose();
+
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
