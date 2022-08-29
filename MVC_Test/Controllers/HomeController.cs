@@ -22,6 +22,13 @@ namespace MVC_Test.Controllers
 
         public IActionResult Index()
         {
+            //SQLiteConnection connection = new SQLiteConnection("data source = TestDB.sql");
+            //connection.Open();
+            //SQLiteCommand cmd = new SQLiteCommand("create table TestTable (TIME text null, ITEM text null, PRICE int null)", connection);
+            //cmd.ExecuteNonQuery();
+            //cmd.Dispose();
+            //connection.Close();
+            //connection.Dispose();
             return View();
         }
 
@@ -33,9 +40,9 @@ namespace MVC_Test.Controllers
 
         public IActionResult New(string time, string item, int price)
         {
-            SQLiteConnection connection = new SQLiteConnection("data source = Test.sql");
+            SQLiteConnection connection = new SQLiteConnection("data source = TestDB.sql");
             connection.Open();
-            string str = "insert into RECORD_0 values ('" + time + "', '" + item + "', " + price.ToString() + ")";
+            string str = "insert into TestTable values ('" + time + "', '" + item + "', " + price.ToString() + ")";
             SQLiteCommand cmd = new SQLiteCommand(str, connection);
             cmd.ExecuteNonQuery();
 
@@ -48,9 +55,9 @@ namespace MVC_Test.Controllers
 
         public IActionResult Display()
         {
-            SQLiteConnection connection = new SQLiteConnection("data source = Test.sql");
+            SQLiteConnection connection = new SQLiteConnection("data source = TestDB.sql");
             connection.Open();
-            SQLiteCommand cmd = new SQLiteCommand("select * from RECORD_0", connection);
+            SQLiteCommand cmd = new SQLiteCommand("select * from TestTable", connection);
             SQLiteDataReader reader = cmd.ExecuteReader();
 
             List<Consumption> list = new List<Consumption>();
